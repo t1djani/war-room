@@ -1,0 +1,12 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "war-room",
+  "owner": { "name": "t1djani" },
+  "plugins": [
+    {
+      "name": "war-room",
+      "source": ".",
+      "description": "War-game your hard calls. A council of non-colluding officers plus a mandated dissenter returns the strategy that wins — and what would make it lose."
+    }
+  ]
+}
