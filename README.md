@@ -104,9 +104,9 @@ HOW-WE-LOSE:
 
 ### See it on a real decision
 
-<div align="center"><img src="assets/sample-dossier.png" alt="A rendered war-room dossier" width="720" /></div>
+**▶ [View a rendered dossier, live](https://t1djani.github.io/war-room/examples/sample-dossier.html)** — or read [the source](examples/sample-dossier.md).
 
-[`examples/sample-dossier.md`](examples/sample-dossier.md) (and its [rendered HTML](examples/sample-dossier.html)) is an actual war-room run on *"monorepo or two separate repos for a small team's two services?"*. The four officers converged on two-repos-contract-first. Then the Tenth Man scored `novel` on something the baseline missed: a schema-contract test checks column names and types, but this boundary breaks *inside the values* — a green CI check certifies a broken contract right up until the product ships a confidently wrong answer. That objection reshaped the battle plan (test data invariants, not schema shape). That is the loop working: the mandated dissent changed the decision.
+It's an actual war-room run on *"monorepo or two separate repos for a small team's two services?"*. The four officers converged on two-repos-contract-first. Then the Tenth Man scored `novel` on something the baseline missed: a schema-contract test checks column names and types, but this boundary breaks *inside the values* — a green CI check certifies a broken contract right up until the product ships a confidently wrong answer. That objection reshaped the battle plan (test data invariants, not schema shape). That is the loop working: the mandated dissent changed the decision.
 
 ## How it works
 
