@@ -46,6 +46,7 @@ Adding "a dissenter" to a prompt is one line; anyone can do it. The moat is the 
 
 - **The Tenth Man rotates and runs last.** He's designated *after* a majority emerges, framed as one who *shared* it and now must argue against it (the real Yom Kippour doctrine — you contradict the view you held). He delivers a **dated pre-mortem** — "it's six months out, this failed, here's the mechanism" — not a modal antithesis.
 - **He can stay silent.** "No grounded attack → all clear" is a valid, unpenalized output. A dissenter who can *never* shut up is a false-positive generator. This is the load-bearing rule; without it the council manufactures noise.
+- **His dissent is scored for predictability.** A mandated dissenter reaches for the *most probable* objection — which is the most banal, the blind spot everyone already anticipated. So before the Tenth Man speaks, an independent agent (blind to him) records the **top-3 objections anyone would predict**. If his objection is in that baseline, it's scored `predictable` — a shared blind spot, not dissent — and he's sent back once for a failure mechanism *outside* the obvious. The score isn't a number; it's a classification grounded in the recorded baseline, auditable after the fact. Nobody else measures whether the disagreement was *obvious*.
 - **Grounding is external.** Every objection points at an openable reference (`file:line`, a manifest entry, a doc line) or is marked `speculative`. A check that re-reads the work with the same context that wrote it is theater — so a deterministic [hook](hooks/validate-dossier.sh) verifies the structure and that each reference *resolves*. (It doesn't judge whether the reference *supports* the claim — that stays human, and stays honest about being stochastic.)
 - **The output is a frozen dossier.** A multi-agent debate is stochastic; war-room never pretends its verdict replays identically. The artifact is the *frozen, auditable record* — positions, grounded objections, and the Commander's sealed call.
 
@@ -73,6 +74,11 @@ BATTLE-PLAN:
   - model relationships as adjacency tables; add recursive CTEs behind a repository port.
   - put a benchmark gate on traversal latency so the exit condition is measurable.
 
+BASELINE:                       # the obvious objections, recorded before the Tenth Man, blind to him
+  - "a graph DB would be faster for deep traversal"
+  - "migrating later will be expensive"
+  - "the team has no graph experience"
+
 HOW-WE-LOSE:
   - by: The Quartermaster
     axis: feasibility
@@ -84,6 +90,7 @@ HOW-WE-LOSE:
     claim: "we lock into adjacency tables, then the product pivots to graph-native features and the migration costs a quarter."
     grounding: speculative
     failure-world: "Q4 — recommendations need 6-hop traversal; we rewrite the data layer under deadline."
+    predictability: novel        # not in the baseline — a real blind spot, not the obvious risk
     status: bet-accepted
 ```
 
@@ -125,6 +132,6 @@ Early days. Issues and ideas welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 - [x] **The council** · five officers, each a distinct model of the problem, grounded in decision-science.
 - [x] **The Tenth Man** · rotating, dated pre-mortem, right to stay silent.
-- [x] **The dossier** · STRATEGY / BATTLE-PLAN / HOW-WE-LOSE, with a deterministic structure check.
-- [ ] **Predictability scoring** · flag a dissent that lands in the top-3 obvious objections as a shared blind spot, not dissent.
+- [x] **The dossier** · STRATEGY / BATTLE-PLAN / BASELINE / HOW-WE-LOSE, with a deterministic structure check.
+- [x] **Predictability scoring** · a dissent that lands in the recorded top-3 obvious objections is scored a shared blind spot, not dissent.
 - [ ] **Roster discovery** · infer the project's domains automatically instead of the generic five.

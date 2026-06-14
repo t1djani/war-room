@@ -26,7 +26,7 @@ fail() { echo "  ✗ $1" >&2; problems=$((problems + 1)); }
 echo "war-room · validating dossier: $file"
 
 # 1. required sections
-for section in "STRATEGY" "BATTLE-PLAN" "HOW-WE-LOSE"; do
+for section in "STRATEGY" "BATTLE-PLAN" "BASELINE" "HOW-WE-LOSE"; do
   if ! grep -Eq "^[[:space:]]*${section}[:]" "$file"; then
     fail "missing required section: ${section}"
   fi
@@ -54,8 +54,23 @@ while IFS= read -r raw; do
   esac
 done < <(grep -E "^[[:space:]]*grounding:" "$file")
 
+# 3. predictability scoring — if the Tenth Man weighed in, his dissent must be scored
+if grep -Eqi "by:[[:space:]]*.*tenth man" "$file"; then
+  if ! grep -Eq "^[[:space:]]*predictability:" "$file"; then
+    fail "the Tenth Man has an entry but no predictability score (novel | predictable)"
+  fi
+fi
+# every predictability value, if present, must be novel or predictable
+while IFS= read -r raw; do
+  val="$(printf '%s' "$raw" | sed -E 's/^[[:space:]]*predictability:[[:space:]]*//; s/^["'"'"']//; s/["'"'"'][[:space:]]*$//')"
+  case "$val" in
+    novel|predictable) : ;;
+    *) fail "invalid predictability: '${val}' (must be 'novel' or 'predictable')" ;;
+  esac
+done < <(grep -E "^[[:space:]]*predictability:" "$file")
+
 if [ "$problems" -eq 0 ]; then
-  echo "  ✓ structure and groundings valid"
+  echo "  ✓ structure, groundings, and predictability valid"
   exit 0
 fi
 echo "validate-dossier: ${problems} problem(s)" >&2

@@ -46,9 +46,15 @@ A **Specialist** seat is injectable when the subject demands a domain (security,
 
 4. **The Marshal synthesizes a proposed strategy.** From the officers' reads — not your own — the Marshal names the winning course of action and a battle-plan outline (the *what* that wins, at the design level; the detailed executable plan is a separate job, downstream). It surfaces the emerging majority.
 
-5. **The Tenth Man runs last, against the consensus.** Spawn him *after* a majority emerges. He sees **the emerging consensus** (his target) — never the producer's reasoning. His duty, not his opinion: build the world where this strategy fails. His deliverable is a **dated pre-mortem** ("it's six months out, the decision failed — tell the mechanism"), not a modal antithesis. Rotate the dissent: frame him as one who *shared* the majority and now must argue against it.
-   - **Predictability check:** if his objection was in the top-3 anyone would have guessed, it is a *shared blind spot*, not dissent — push him to a failure mechanism outside the obvious, or to a different context slice.
-   - **The right to be silent is sacred:** "I find no grounded attack → all clear" is a valid, unpenalized output. A dissenter who can never stay silent is a false-positive generator. Never force an objection.
+5. **The Tenth Man runs last, against the consensus** — and his dissent is scored for predictability. Spawn him *after* a majority emerges. He sees **the emerging consensus** (his target) — never the producer's reasoning. His duty, not his opinion: build the world where this strategy fails, as a **dated pre-mortem** ("it's six months out, the decision failed — tell the mechanism"), not a modal antithesis. Rotate the dissent: frame him as one who *shared* the majority and now must argue against it.
+
+   **Predictability scoring** (this is what separates real dissent from theater — a mandated dissenter will reach for the *most probable* objection, which is the most banal, which is the shared blind spot everyone already anticipated):
+   1. **Baseline the obvious — first, and independently.** Before (or in parallel with) the Tenth Man, spawn a separate, non-colluding agent that sees only the decision and the emerging consensus and lists the **top-3 objections anyone would predict**. This is the predictability baseline. The Tenth Man does NOT see it; the baseline agent does NOT see the Tenth Man.
+   2. **Compare.** For each of the Tenth Man's objections, check whether it matches the baseline. Matches the baseline → `predictability: predictable` (a shared blind spot, not dissent). Outside it → `predictability: novel`.
+   3. **Push once, don't fake.** If his objection is `predictable`, send him back once for a failure mechanism *outside* the baseline (or hand him a different context slice). If he still only finds predictable objections, record them as `predictable` and move on — do not invent a novel one to look good. A predictable dissent is honest signal too: it says the obvious risk is the real risk.
+   4. **Record the baseline in the dossier** (the `BASELINE` section). The score is a *grounded classification*, not a number — its evidence is the recorded top-3, auditable after the fact. (war-room shows no fake aggregate scores; predictability is no exception.)
+
+   **The right to be silent is sacred:** "I find no grounded attack → all clear" is a valid, unpenalized output. A dissenter who can never stay silent is a false-positive generator. Never force an objection.
 
 6. **Assemble the dossier** (see Output). Every `how-we-lose` entry carries a `grounding`: an openable reference, or the literal `speculative`. An objection whose reference does not open is downgraded to `speculative`.
 
@@ -68,14 +74,22 @@ BATTLE-PLAN:                    # the what that wins — design level, not the d
   - <execution line 1>
   - <execution line 2>
 
+BASELINE:                       # the top-3 predictable objections, recorded BEFORE the Tenth Man, blind to him
+  - <obvious objection 1>
+  - <obvious objection 2>
+  - <obvious objection 3>
+
 HOW-WE-LOSE:                    # integrated, not an appendix
   - by: <officer / the Tenth Man>
     axis: <which model of the problem>
     claim: <what makes us lose>
     grounding: <file:line | manifest entry | speculative>
     failure-world: <dated pre-mortem, for the Tenth Man>
+    predictability: <novel | predictable>   # required on Tenth Man entries; was it in the BASELINE?
     status: defused | not-defused | bet-accepted
 ```
+
+A `predictable` Tenth Man entry is honest signal, not a failure — it means the obvious risk *is* the real risk. But a council whose dissenter only ever lands `predictable` objections has a blind spot it isn't escaping; surface that to the Commander.
 
 Keep the failure-worlds even when defused: the minority signal is often the rare, correct one. A not-defused-but-accepted risk is explicit decision debt, re-openable next run.
 

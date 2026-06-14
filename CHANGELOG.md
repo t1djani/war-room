@@ -2,6 +2,12 @@
 
 All notable changes to war-room are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/), and versions follow [SemVer](https://semver.org/).
 
+## [0.2.0] — 2026-06-14
+
+### Added
+- **Predictability scoring for the Tenth Man.** Before he speaks, an independent agent (blind to him) records the top-3 predictable objections as a `BASELINE`. Each Tenth Man objection is then scored `predictable` (a shared blind spot) or `novel`; a predictable one sends him back once for a failure mechanism outside the obvious. The score is a classification grounded in the recorded baseline, not a number.
+- Dossier gains a `BASELINE` section and a `predictability` field; `validate-dossier.sh` enforces both (the section is required, and a Tenth Man entry must carry a valid `novel`/`predictable` score).
+
 ## [0.1.0] — 2026-06-14
 
 First public alpha.
