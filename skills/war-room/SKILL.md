@@ -38,6 +38,8 @@ A **Specialist** seat is injectable when the subject demands a domain (security,
 
 ## Procedure
 
+Keep the council visible: open a **TodoWrite checklist** for the run — one todo to frame the war, one per officer convened, one for the Marshal's synthesis, one for the Tenth Man (with his predictability scoring), one to assemble and validate the dossier. Mark each `in_progress`/`completed` as you go. The Commander watches the council convene and resolve in real time — never run it as a silent block.
+
 1. **Frame the war.** State the decision and its constraints in one paragraph. If a named oracle would settle it → stop, this is a verification, not a war.
 
 2. **Pick the depth.**

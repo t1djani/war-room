@@ -2,6 +2,11 @@
 
 All notable changes to war-room are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/), and versions follow [SemVer](https://semver.org/).
 
+## [0.3.1] — 2026-06-14
+
+### Added
+- **Live progress checklist.** The `war-room` skill now drives a TodoWrite checklist — one todo to frame the war, one per officer, one for the Marshal's synthesis, one for the Tenth Man, one to assemble and validate the dossier — so the Commander watches the council convene and resolve instead of waiting on a silent block.
+
 ## [0.3.0] — 2026-06-14
 
 ### Added
