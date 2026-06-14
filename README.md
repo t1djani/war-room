@@ -102,6 +102,10 @@ HOW-WE-LOSE:
     status: bet-accepted
 ```
 
+### See it on a real decision
+
+[`examples/sample-dossier.md`](examples/sample-dossier.md) (and its [rendered HTML](examples/sample-dossier.html)) is an actual war-room run on *"monorepo or two separate repos for a small team's two services?"*. The four officers converged on two-repos-contract-first. Then the Tenth Man scored `novel` on something the baseline missed: a schema-contract test checks column names and types, but this boundary breaks *inside the values* — a green CI check certifies a broken contract right up until the product ships a confidently wrong answer. That objection reshaped the battle plan (test data invariants, not schema shape). That is the loop working: the mandated dissent changed the decision.
+
 ## How it works
 
 **Cost scales to the stakes.** `quick` (default) runs the officers on a fast model and reserves the strong model for the Tenth Man (his job is the hardest). `thorough` runs every officer on the strong model for irreversible, expensive-to-reverse, or security-sensitive calls.
