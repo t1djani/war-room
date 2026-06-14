@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/banner.png" alt="war-room" width="820" />
+
 # war-room
 
 **War-game your hard calls.**
