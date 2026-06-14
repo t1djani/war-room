@@ -2,6 +2,11 @@
 
 All notable changes to war-room are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/), and versions follow [SemVer](https://semver.org/).
 
+## [0.4.0] — 2026-06-14
+
+### Added
+- **HTML render on request** (`/war-room-render`, `scripts/render-dossier.py`). Turns a sealed dossier into a styled, self-contained HTML page (war-room theme, standard library only — no dependencies). The text dossier stays the source of truth; the page is a shareable view.
+
 ## [0.3.1] — 2026-06-14
 
 ### Added

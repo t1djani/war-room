@@ -110,14 +110,17 @@ HOW-WE-LOSE:
 
 **It knows when *not* to run.** If a named oracle — a test, a spec, an invariant — could settle the question, war-room says so and stops. A debate over a decidable fact is theater; verify it instead.
 
+**Text first, HTML on request.** The dossier is a plain-text file — auditable, diff-able, checked by the hook. When you want to share or screenshot it, `/war-room-render` turns it into a styled, dependency-free HTML page (the text stays the source of truth; the page is just a view).
+
 **Plugin layout**
 
 ```
 war-room/
 ├── .claude-plugin/{plugin.json, marketplace.json}
 ├── skills/war-room/      # the council and the procedure — markdown, this is the core
-├── commands/             # /war-room
+├── commands/             # /war-room, /war-room-roster, /war-room-render
 ├── hooks/                # validate-dossier.sh — deterministic structure + grounding check
+├── scripts/              # render-dossier.py — dossier → self-contained HTML (stdlib)
 ├── examples/             # a roster to copy
 └── docs/                 # the roster reference + sources
 ```

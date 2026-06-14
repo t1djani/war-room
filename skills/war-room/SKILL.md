@@ -66,6 +66,8 @@ Keep the council visible: open a **TodoWrite checklist** for the run — one tod
 
 8. **Present to the Commander.** Lay out the strategy, the battle plan, and how-we-lose in one batch. The Commander decides and seals. A sealed dossier is **frozen** — re-readable and auditable, not re-generable (a multi-agent debate is stochastic; do not pretend its verdict replays identically).
 
+9. **Render to HTML on request (optional).** The text dossier is the source of truth. When the Commander wants a shareable view, run `python3 scripts/render-dossier.py <dossier-file> "<decision>" > <dossier-file>.html` — a styled, dependency-free page. It's a view, not the artifact; never let the HTML replace the text dossier.
+
 ## Output — the battle plan
 
 A war-room produces a strategy, not a cold verdict. Zero aggregate score (correlated LLM voters make aggregation amplify the common error — a score is false objectivity a skeptic spots in seconds).

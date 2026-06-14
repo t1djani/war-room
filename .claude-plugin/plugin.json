@@ -3,7 +3,7 @@
   "name": "war-room",
   "displayName": "war-room",
   "description": "War-game your hard calls. A council of non-colluding officers plus a mandated dissenter returns the strategy that wins — and what would make it lose.",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "author": { "name": "t1djani" },
   "homepage": "https://github.com/t1djani/war-room",
   "repository": "https://github.com/t1djani/war-room",
