@@ -32,6 +32,14 @@ Then, on any hard decision:
 
 You get a **STRATEGY**, a **BATTLE-PLAN**, and **HOW-WE-LOSE** — the failure-worlds that would beat the plan, each grounded in a real reference or flagged as speculative. No score. No fake consensus.
 
+**Optional — seat officers that read *your* codebase.** Run this once to swap the generic five for officers mapped to your project's real domains:
+
+```bash
+/war-room-roster
+```
+
+It scans the project (shallowly), *proposes* a roster, and writes `.war-room/roster.yaml` only after you confirm. Skip it if you just want a fast run — the default `/war-room` never scans.
+
 ## The idea
 
 Most "ask several LLMs" tools optimize for **consensus**: poll N models, average, let a chairman synthesize. Averaging throws away the one thing the exercise exists to produce — the angle nobody at the table was looking at.
