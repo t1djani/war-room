@@ -1,0 +1,42 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Monorepo or two separate repos for two services? — war-room</title><style>
+:root{--bg:#0b1020;--bg2:#111726;--panel:rgba(255,255,255,.03);--line:rgba(245,166,35,.16);
+--ink:#e6e9f0;--muted:#8a93a6;--amber:#f5a623;--amber2:#ffb627;
+--green:#3fb950;--red:#f0883e;--blue:#58a6ff;}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 600px at 70% -10%,#16203a 0%,var(--bg) 55%) ,var(--bg);
+color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+.wrap{max-width:820px;margin:0 auto;padding:56px 24px 80px}
+.kicker{letter-spacing:.42em;font-size:12px;color:var(--amber);text-transform:uppercase;font-weight:700}
+h1{font-size:30px;line-height:1.2;margin:.5rem 0 .25rem;font-weight:700}
+.meta{color:var(--muted);font-size:13px;margin-bottom:40px}
+.section{margin:34px 0}
+.section>h2{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
+border-bottom:1px solid var(--line);padding-bottom:8px;margin:0 0 16px;font-weight:700}
+.strategy{background:linear-gradient(180deg,rgba(245,166,35,.08),rgba(245,166,35,.02));
+border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+.strategy .course{font-size:21px;font-weight:700;color:var(--amber2)}
+.strategy .why{color:var(--muted);margin-top:8px}
+ul.lines{list-style:none;padding:0;margin:0}
+ul.lines li{padding:10px 0 10px 26px;position:relative;border-bottom:1px solid rgba(255,255,255,.05)}
+ul.lines li:before{content:"▸";position:absolute;left:4px;color:var(--amber);opacity:.8}
+ul.baseline li:before{content:"○";color:var(--muted)}
+.card{background:var(--panel);border:1px solid rgba(255,255,255,.07);border-left:3px solid var(--amber);
+border-radius:10px;padding:16px 18px;margin:12px 0}
+.card .by{font-weight:700}
+.card .axis{color:var(--muted);font-size:13px;margin-left:8px}
+.card .claim{margin:8px 0}
+.card .fw{color:var(--muted);font-style:italic;margin-top:8px;font-size:14px;
+border-left:2px solid rgba(255,255,255,.1);padding-left:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.grounding{font:13px ui-monospace,SFMono-Regular,Menlo,monospace}
+.grounding.ref{color:var(--amber2)}
+.grounding.speculative{color:var(--muted);font-style:italic;font-family:inherit}
+.badge{font-size:11px;font-weight:700;letter-spacing:.04em;padding:3px 9px;border-radius:999px;text-transform:uppercase}
+.pred-novel{background:rgba(245,166,35,.18);color:var(--amber2);border:1px solid var(--line)}
+.pred-predictable{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,.15)}
+.status-defused{background:rgba(63,185,80,.15);color:var(--green)}
+.status-not-defused{background:rgba(240,136,62,.15);color:var(--red)}
+.status-bet-accepted{background:rgba(88,166,255,.15);color:var(--blue)}
+.foot{margin-top:56px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:16px}
+.foot a{color:var(--amber)}
+</style></head><body><div class=wrap><div class=kicker>war&#8202;-&#8202;room dossier</div><h1>Monorepo or two separate repos for two services?</h1><div class=meta>Sealed 2026-06-14 12:54 UTC · a frozen record, not a replayable verdict</div><div class="section"><h2>Strategy</h2><div class=strategy><div class=course>Two separate repos, contract-first — keep each service in its own repo and treat the shared database schema as a versioned, tested contract.</div><div class=why>the monorepo&#x27;s payoffs (shared tooling, atomic cross-service commits) are illusory across two stacks that share no code; two repos buy dead-simple CI, clean onboarding, and independent deploys, and the one real risk (schema drift) is far cheaper to neutralize with a contract test than with a polyglot monorepo.</div></div></div><div class="section"><h2>Battle plan</h2><ul class=lines><li>Make the schema contract a first-class artifact: migrations plus generated/checked-in types live in one designated place, semver-tagged, each service pinning a known version.</li><li>Add a contract test to BOTH repos&#x27; CI that asserts DATA INVARIANTS, not just schema shape — a row-count/freshness floor on derived tables, cross-encoding equivalence (two encodings of the &quot;same&quot; concept must agree), and identity resolved only through the alias table. (This is the Tenth Man&#x27;s fix, adopted.)</li><li>One owner per schema change, expand-then-contract migrations (additive first, consumers migrate, remove later) so the two repos never need a synchronized atomic commit.</li><li>Probe the contract POST-DEPLOY against production, not only in CI — a green CI check must not be the only proof both schemas were actually applied.</li></ul></div><div class="section"><h2>Baseline · the predictable objections</h2><ul class="lines baseline"><li>Monorepo: shared tooling / a dependency bump in one service breaks the other&#x27;s build.</li><li>Two repos: cross-cutting changes need synchronized PRs across both repos.</li><li>Two repos: onboarding friction doubles — clone and context-switch two repos.</li></ul></div><div class="section"><h2>How we lose</h2><div class=card><span class=by>The Scout</span><span class=axis>fact vs assumption</span><div class=claim>the whole call hinges on how OFTEN the schema changes and who drives it — high cadence turns two-repo coordination into real friction.</div><div class=row><span class="grounding speculative">speculative</span><span class="badge status status-bet-accepted">bet-accepted</span></div></div><div class=card><span class=by>The Tenth Man</span><span class=axis>refuting the consensus</span><div class=claim>green test, dead data — a schema-contract test checks column names and types, but this boundary breaks INSIDE the values (an identity column that is really a per-credential alias; a derived table recomputed over a different row population; a stale graceful-fallback masking an empty table). CI stays green the whole time the contract is broken, and the product ships a confidently fabricated answer.</div><div class=fw>11 weeks out, a Tuesday morning: a single-repo change to a derived table&#x27;s population logic (zero DDL) makes a consumer read the same column names and get quietly wrong numbers. Every CI gate is green; a stale fallback hides it for days.</div><div class=row><span class="grounding speculative">speculative</span><span class="badge pred pred-novel">novel</span><span class="badge status status-not-defused">not-defused</span></div></div><div class=card><span class=by>The Tenth Man</span><span class=axis>refuting the consensus</span><div class=claim>CI-green but deploy-diverged — the contract is validated in CI against a clean DB, then re-falsified at deploy when an ordered migration chain stalls on one non-idempotent step. No single artifact proves both sides&#x27; schemas were actually applied together.</div><div class=fw>Launch morning: a migration merges, both repos&#x27; CI green, the deploy still bricks the boundary for hours because the live schema never matched the contract the test certified.</div><div class=row><span class="grounding speculative">speculative</span><span class="badge pred pred-novel">novel</span><span class="badge status status-not-defused">not-defused</span></div></div></div><div class=foot>Generated by <a href="https://github.com/t1djani/war-room">war-room</a> — the strategy that wins, and what would make it lose.</div></div></body></html>
