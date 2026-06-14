@@ -2,6 +2,11 @@
 
 All notable changes to war-room are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/), and versions follow [SemVer](https://semver.org/).
 
+## [0.3.0] — 2026-06-14
+
+### Added
+- **Opt-in roster discovery** (`/war-room-roster`, `discover-roster` skill). Scans the project (or reuses a `.servo/manifest.yaml`) to infer 3–5 domains, *proposes* a roster of domain officers, and writes `.war-room/roster.yaml` only after the user confirms. The default `/war-room` never scans — a normal run stays instant.
+
 ## [0.2.0] — 2026-06-14
 
 ### Added

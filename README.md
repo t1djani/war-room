@@ -98,7 +98,7 @@ HOW-WE-LOSE:
 
 **Cost scales to the stakes.** `quick` (default) runs the officers on a fast model and reserves the strong model for the Tenth Man (his job is the hardest). `thorough` runs every officer on the strong model for irreversible, expensive-to-reverse, or security-sensitive calls.
 
-**One file adapts it to your project.** Drop a `.war-room/roster.yaml` to swap the generic officers for your real domains — each keeps a persona, its slice becomes a real slice of your codebase. Everything else is generic. See [examples/roster.example.yaml](examples/roster.example.yaml).
+**One file adapts it to your project.** Drop a `.war-room/roster.yaml` to swap the generic officers for your real domains — each keeps a persona, its slice becomes a real slice of your codebase. Everything else is generic. See [examples/roster.example.yaml](examples/roster.example.yaml). Don't want to write it by hand? Run `/war-room-roster` once — it scans the project, *proposes* a roster, and writes it only after you confirm. It's opt-in: the default `/war-room` never scans, so a normal run stays instant.
 
 **It knows when *not* to run.** If a named oracle — a test, a spec, an invariant — could settle the question, war-room says so and stops. A debate over a decidable fact is theater; verify it instead.
 
@@ -134,4 +134,4 @@ Early days. Issues and ideas welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 - [x] **The Tenth Man** · rotating, dated pre-mortem, right to stay silent.
 - [x] **The dossier** · STRATEGY / BATTLE-PLAN / BASELINE / HOW-WE-LOSE, with a deterministic structure check.
 - [x] **Predictability scoring** · a dissent that lands in the recorded top-3 obvious objections is scored a shared blind spot, not dissent.
-- [ ] **Roster discovery** · infer the project's domains automatically instead of the generic five.
+- [x] **Roster discovery** · opt-in `/war-room-roster` scans the project and proposes a domain roster — the default never scans.

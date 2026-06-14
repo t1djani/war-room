@@ -34,6 +34,8 @@ The four cover the decision cycle (know → imagine → decide → execute). The
 
 A **Specialist** seat is injectable when the subject demands a domain (security, data, perf) — never in the base roster, because its slice varies. When a roster manifest exists (`.war-room/roster.yaml`), it replaces the generic officers with the project's real domains — each keeps a persona, but its slice becomes a real slice of the codebase.
 
+**war-room never scans the project on its own** — that would make every default run heavy. With no roster file, the generic five run instantly. Building a domain roster is opt-in: the user runs `/war-room-roster` once (the `discover-roster` skill), which scans, proposes a roster, and writes it only after they confirm. If there is no roster and the decision is clearly domain-specific, you may mention this option in one line — but do not scan.
+
 ## Procedure
 
 1. **Frame the war.** State the decision and its constraints in one paragraph. If a named oracle would settle it → stop, this is a verification, not a war.
