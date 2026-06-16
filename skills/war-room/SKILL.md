@@ -20,7 +20,7 @@ The hard routing rule: **if you can name the oracle, you may not convene the war
 
 The human is **the Commander**: they preside, hear the council, and *make the call*. The officers advise; the Commander decides and seals. Nothing ships without the Commander's OK.
 
-Five officers run by default — each a distinct *model of the problem*, not a mood. (Different tone with the same model of the problem is cosmetic diversity; it adds noise, not signal.)
+The **default council** is the five officers below — each a distinct *model of the problem*, not a mood (different tone with the same model is cosmetic diversity: noise, not signal). Treat this table as the **seed roster and a worked example, not a fixed law**: every run *musters* a council for the decision at hand (see *Mustering the council*), and these five are what it composes from.
 
 | Officer | Optimizes | Signature question |
 |---|---|---|
@@ -32,9 +32,17 @@ Five officers run by default — each a distinct *model of the problem*, not a m
 
 The four cover the decision cycle (know → imagine → decide → execute). The Tenth Man stands structurally apart: if he dissolves into the four, groupthink crushes him.
 
-A **Specialist** seat is injectable when the subject demands a domain (security, data, perf) — never in the base roster, because its slice varies. When a roster manifest exists (`.war-room/roster.yaml`), it replaces the generic officers with the project's real domains — each keeps a persona, but its slice becomes a real slice of the codebase.
+A **Specialist** seat is injectable when the subject demands a domain (security, data, perf) — never hardwired in the seed, because its slice varies with the decision. Mustering is how the right specialist gets a seat.
 
-**war-room never scans the project on its own** — that would make every default run heavy. With no roster file, the generic five run instantly. Building a domain roster is opt-in: the user runs `/war-room-roster` once (the `discover-roster` skill), which scans, proposes a roster, and writes it only after they confirm. If there is no roster and the decision is clearly domain-specific, you may mention this option in one line — but do not scan.
+## Mustering the council
+
+Every run composes a council *for this decision* — the five seed officers are a default, not a default-only. Before convening, **propose the roster to the Commander and let them choose** (one `AskUserQuestion`, three options — last one only if a saved roster exists):
+
+- **Tailored (recommended)** — a **light, question-scoped recon**, not a project scan. From the decision text, infer the 2-4 subjects the war actually turns on, then `grep`/read **only those precise slices** of the code/docs to ground the officers and decide whether to swap or add a seat (e.g. a security officer for a security call). Targeted retrieval, not a tree walk — cheap, and it makes each officer cite real references instead of guessing.
+- **Base roster** — the generic five, instantly, no reading. For a fast or low-stakes call.
+- **Saved roster** *(shown only if `.war-room/roster.yaml` exists)* — use the persisted project roster as the seed.
+
+The tailored option is the lightweight cousin of `discover-roster`: it reads only what *this question* needs and persists nothing. **Building a durable, project-wide roster is the separate heavy opt-in** — `/war-room-roster` (the `discover-roster` skill) scans the whole project once, proposes a roster, and writes `.war-room/roster.yaml` only after the Commander confirms. war-room still **never scans the whole project on its own**; the tailored recon stays scoped to the decision.
 
 ## Procedure
 
@@ -42,15 +50,17 @@ Keep the council visible: open a **TodoWrite checklist** for the run — one tod
 
 1. **Frame the war.** State the decision and its constraints in one paragraph. If a named oracle would settle it → stop, this is a verification, not a war.
 
-2. **Pick the depth.**
+2. **Muster the council** (see *Mustering the council*). Offer the Commander the roster choice — tailored (light question-scoped recon), base, or the saved roster if one exists. If tailored: infer the 2-4 subjects from the decision, fetch only those slices, and compose the seats (swap/add a specialist when the decision demands it). Add one TodoWrite item per officer once the roster is set.
+
+3. **Pick the depth.**
    - `quick` (default): officers on a cheap, fast model; the Tenth Man on the strong model (his job is the hardest). Reason inline only for a genuinely low-stakes fork.
    - `thorough` (irreversible / expensive-to-reverse / security): every officer on the strong model, and consider a second roster pass with different context slices.
 
-3. **Convene the officers — non-colluding.** Spawn each officer as a *separate* general subagent. Give it: the **decision to settle**, its **officer seed** (its signature question + what it optimizes + the slice it should read), and the relevant **context slice**. Do NOT give it the producer's reasoning or preferred answer — that anchors every seat on one point and turns the debate into perturbation around a single (possibly wrong) equilibrium. Each officer returns its read of the decision through its own model, citing facts by openable reference (`file:line`, a manifest entry, a doc line) or marking a claim `speculative`.
+4. **Convene the officers — non-colluding.** Spawn each officer as a *separate* general subagent. Give it: the **decision to settle**, its **officer seed** (its signature question + what it optimizes + the slice it should read), and the relevant **context slice**. Do NOT give it the producer's reasoning or preferred answer — that anchors every seat on one point and turns the debate into perturbation around a single (possibly wrong) equilibrium. Each officer returns its read of the decision through its own model, citing facts by openable reference (`file:line`, a manifest entry, a doc line) or marking a claim `speculative`.
 
-4. **The Marshal synthesizes a proposed strategy.** From the officers' reads — not your own — the Marshal names the winning course of action and a battle-plan outline (the *what* that wins, at the design level; the detailed executable plan is a separate job, downstream). It surfaces the emerging majority.
+5. **The Marshal synthesizes a proposed strategy.** From the officers' reads — not your own — the Marshal names the winning course of action and a battle-plan outline (the *what* that wins, at the design level; the detailed executable plan is a separate job, downstream). It surfaces the emerging majority.
 
-5. **The Tenth Man runs last, against the consensus** — and his dissent is scored for predictability. Spawn him *after* a majority emerges. He sees **the emerging consensus** (his target) — never the producer's reasoning. His duty, not his opinion: build the world where this strategy fails, as a **dated pre-mortem** ("it's six months out, the decision failed — tell the mechanism"), not a modal antithesis. Rotate the dissent: frame him as one who *shared* the majority and now must argue against it.
+6. **The Tenth Man runs last, against the consensus** — and his dissent is scored for predictability. Spawn him *after* a majority emerges. He sees **the emerging consensus** (his target) — never the producer's reasoning. His duty, not his opinion: build the world where this strategy fails, as a **dated pre-mortem** ("it's six months out, the decision failed — tell the mechanism"), not a modal antithesis. Rotate the dissent: frame him as one who *shared* the majority and now must argue against it.
 
    **Predictability scoring** (this is what separates real dissent from theater — a mandated dissenter will reach for the *most probable* objection, which is the most banal, which is the shared blind spot everyone already anticipated):
    1. **Baseline the obvious — first, and independently.** Before (or in parallel with) the Tenth Man, spawn a separate, non-colluding agent that sees only the decision and the emerging consensus and lists the **top-3 objections anyone would predict**. This is the predictability baseline. The Tenth Man does NOT see it; the baseline agent does NOT see the Tenth Man.
@@ -60,13 +70,13 @@ Keep the council visible: open a **TodoWrite checklist** for the run — one tod
 
    **The right to be silent is sacred:** "I find no grounded attack → all clear" is a valid, unpenalized output. A dissenter who can never stay silent is a false-positive generator. Never force an objection.
 
-6. **Assemble the dossier** (see Output). Every `how-we-lose` entry carries a `grounding`: an openable reference, or the literal `speculative`. An objection whose reference does not open is downgraded to `speculative`.
+7. **Assemble the dossier** (see Output). Every `how-we-lose` entry carries a `grounding`: an openable reference, or the literal `speculative`. An objection whose reference does not open is downgraded to `speculative`.
 
-7. **Validate the structure (deterministic).** Run `hooks/validate-dossier.sh <dossier-file>`. It checks — mechanically — that the dossier has the required sections and that every grounding is either `speculative` or a reference that resolves. It does NOT judge whether the grounding *supports* the claim; that judgment stays with the reader and is stochastic. Determinism stops at structure and at the source existing.
+8. **Validate the structure (deterministic).** Run `hooks/validate-dossier.sh <dossier-file>`. It checks — mechanically — that the dossier has the required sections and that every grounding is either `speculative` or a reference that resolves. It does NOT judge whether the grounding *supports* the claim; that judgment stays with the reader and is stochastic. Determinism stops at structure and at the source existing.
 
-8. **Present to the Commander.** Lay out the strategy, the battle plan, and how-we-lose in one batch. The Commander decides and seals. A sealed dossier is **frozen** — re-readable and auditable, not re-generable (a multi-agent debate is stochastic; do not pretend its verdict replays identically).
+9. **Present to the Commander.** Lay out the strategy, the battle plan, and how-we-lose in one batch. The Commander decides and seals. A sealed dossier is **frozen** — re-readable and auditable, not re-generable (a multi-agent debate is stochastic; do not pretend its verdict replays identically).
 
-9. **Render to HTML on request (optional).** The text dossier is the source of truth. When the Commander wants a shareable view, run `python3 scripts/render-dossier.py <dossier-file> "<decision>" > <dossier-file>.html` — a styled, dependency-free page. It's a view, not the artifact; never let the HTML replace the text dossier.
+10. **Render to HTML on request (optional).** The text dossier is the source of truth. When the Commander wants a shareable view, run `python3 scripts/render-dossier.py <dossier-file> "<decision>" > <dossier-file>.html` — a styled, dependency-free page. It's a view, not the artifact; never let the HTML replace the text dossier.
 
 ## Output — the battle plan
 

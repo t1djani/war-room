@@ -38,7 +38,7 @@ You get a **STRATEGY**, a **BATTLE-PLAN**, and **HOW-WE-LOSE** — the failure-w
 /war-room-roster
 ```
 
-It scans the project (shallowly), *proposes* a roster, and writes `.war-room/roster.yaml` only after you confirm. Skip it if you just want a fast run — the default `/war-room` never scans.
+It scans the whole project, *proposes* a roster, and writes `.war-room/roster.yaml` only after you confirm — a durable roster reused on every run. This is the heavy opt-in; it's distinct from the per-run **tailored** roster, which reads only the slices *one decision* needs and persists nothing. `/war-room` itself never scans the whole project on its own.
 
 ## The idea
 
@@ -62,6 +62,8 @@ Adding "a dissenter" to a prompt is one line; anyone can do it. The moat is the 
 
 The human is **the Commander**: presides, hears the council, and makes the call. The officers advise; the Commander seals.
 
+**Every run musters its own council.** Before convening, war-room offers the Commander a choice: a **tailored** roster — a *light, question-scoped recon* that reads only the slices the decision actually turns on and composes the seats for it (swapping in a security or data officer when the call demands one) — or the **base** roster below, instantly. The five officers are the **seed and a worked example**, not a fixed law.
+
 | Officer | Models the problem as | Signature question |
 |---|---|---|
 | **The Scout** | fact vs assumption | "Do we *know* this or *assume* it?" |
@@ -70,7 +72,7 @@ The human is **the Commander**: presides, hears the council, and makes the call.
 | **The Quartermaster** | feasibility, what breaks | "Which link snaps first?" |
 | **The Tenth Man** | refuting the consensus itself | "Assume we already lost — what killed us?" |
 
-Each officer is a *distinct model of the problem*, not a mood — different tone with the same model is cosmetic diversity, and war-room refuses it. Full reasoning and sources in [docs/roster.md](docs/roster.md).
+Each officer is a *distinct model of the problem*, not a mood — different tone with the same model is cosmetic diversity, and war-room refuses it. The tailored recon stays scoped to the question; building a **durable, project-wide** roster is the separate heavier opt-in, `/war-room-roster`, which scans the whole project once and persists `.war-room/roster.yaml`. Full reasoning and sources in [docs/roster.md](docs/roster.md).
 
 ## The output
 

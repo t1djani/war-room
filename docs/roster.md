@@ -9,6 +9,10 @@ So every officer has two layers:
 
 The skin sells; the skeleton is what makes the seat earn its place.
 
+## The roster is mustered per decision
+
+The five below are the **seed roster and a worked example, not a fixed law**. Every run *musters* a council for the decision at hand: war-room offers the Commander a **tailored** roster — a light, question-scoped recon that infers the 2-4 subjects the decision turns on, reads only those slices, and composes the seats (swapping or adding a specialist when the call demands it) — or the **base five** below, instantly. The tailored recon reads only what *one decision* needs and persists nothing; it is the lightweight cousin of `discover-roster` (`/war-room-roster`), the heavier opt-in that scans the whole project and persists a `.war-room/roster.yaml` reused on every run.
+
 ## The default five
 
 | Officer | Optimizes | Reads first | Signature question | Grounded in |

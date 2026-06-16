@@ -2,6 +2,12 @@
 
 All notable changes to war-room are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/), and versions follow [SemVer](https://semver.org/).
 
+## [0.5.0] — 2026-06-16
+
+### Changed
+- **Every run musters its own council.** war-room now composes the roster *for the decision at hand* instead of always convening the same fixed five. Before convening, it offers the Commander a choice: a **tailored** roster — a light, *question-scoped* recon that infers the 2-4 subjects the decision turns on and reads only those slices to ground and compose the seats — or the **base** five, instantly (plus the saved roster if a `.war-room/roster.yaml` exists). The default five are now documented as the seed roster and a worked example, not a fixed law.
+- The per-run tailored recon is distinct from `discover-roster` (`/war-room-roster`): tailored reads only what one decision needs and persists nothing; `discover-roster` stays the heavier opt-in that scans the whole project and persists a roster. war-room still never scans the whole project on its own.
+
 ## [0.4.0] — 2026-06-14
 
 ### Added
